@@ -1,5 +1,6 @@
 """
-Write a program that reads 3 numbers and displays the sum and average of these 3 numbers.
+Write a program that reads 3 numbers and displays the sum and average of these 
+3 numbers.
 """
 
 num1 = float(input("Enter number 1: "))
