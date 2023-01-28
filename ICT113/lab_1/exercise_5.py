@@ -18,7 +18,7 @@ centInTens = change // 10
 noOfTenCents = centInTens % 5
 noOfFiftyCents = centInTens // 5
 
-print ("50 cent: ", noOfFiftyCents)
+print (f"50 cent: ", noOfFiftyCents:2d)
 print ("10 cent: ", noOfTenCents)
 print ("5 cent: ", noOfFiveCent)
 print ("1 cent: ", noOfOneCent)
