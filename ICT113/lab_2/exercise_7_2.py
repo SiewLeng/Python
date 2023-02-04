@@ -24,7 +24,7 @@ elif(NRIC[0] != 'S' and NRIC[0] != 'T' and NRIC[0] != 'F' and NRIC[0] != 'G'):
     output  += "The first letter must be S, T, F or G"
 elif(not NRIC[1:8:1].isdigit()):
     output += "Must consist of 7 digits"
-elif(not NRIC[8:9:1].isalpha()):
+elif(not NRIC[8].isalpha()):
     output += "Reference letter must be A to Z or a to z"
 else:
     output += "Valid NRIC"
