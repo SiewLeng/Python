@@ -4,7 +4,7 @@ consecutive numbers.
 """
 
 num1 = int(input("Enter first integer: "))
-num2 = int(input("Enter second integer (larger than first integer)"))
+num2 = int(input("Enter second integer (larger than first integer): "))
 
 sum = 0
 

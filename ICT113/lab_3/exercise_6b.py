@@ -31,7 +31,7 @@ for i in range(1, numOfTimes + 1, 1):
     randomInt = floor(random.randrange(0, 2))
     if randomInt == 1 and (quess == "T" or quess == "t"):
         isCorrectGuess = True
-    elif randomInt == 1 and (quess == "H" or quess == "h"):
+    elif randomInt == 0 and (quess == "H" or quess == "h"):
         isCorrectGuess = True
     
     # print the result
