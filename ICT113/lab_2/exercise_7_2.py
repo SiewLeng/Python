@@ -17,7 +17,6 @@ messages:
 NRIC = input("Enter a NRIC number: ")
 output = ""
 
-
 if (len(NRIC) != 9):
     output += "Length must be exactly 9"
 elif(NRIC[0] != 'S' and NRIC[0] != 'T' and NRIC[0] != 'F' and NRIC[0] != 'G'):
