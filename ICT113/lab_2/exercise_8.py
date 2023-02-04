@@ -17,9 +17,9 @@ charge = 0
 output = ""
 
 if (len(input.split(".")) == 1):
-    isValidInput = input.isnumeric()
+    isValidInput = input.isdigit() and float(input) > 0
 elif (len(input.split(".")) == 2):
-    isValidInput = input.split(".")[0].isnumeric() and input.split(".")[1].isnumeric()
+    isValidInput = input.split(".")[0].isdigit() and input.split(".")[1].isdigit() and float(input) > 0
 
 if (isValidInput):
     inputFloat = float(input)
