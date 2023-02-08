@@ -67,6 +67,24 @@ def printResults(swimmers, timings):
             fastestTime = timings[i]
     print('Fastest is {0}s'.format(fastestTime))
 
+#(d)
+def printSortedResult(swimmers, timings): 
+    print('\n')
+    for i in range (0, len(swimmers) - 1, 1):
+        indexOfFastestTiming = i
+        for n in range (i + 1, len(timings), 1):
+            if (timings[n] < timings[indexOfFastestTiming]):
+                indexOfFastestTiming = n
+        if (indexOfFastestTiming != i):
+            temp = timings[i]
+            timings[i] = timings[indexOfFastestTiming]
+            timings[indexOfFastestTiming] = temp
+    
+    for i in range (0, len(swimmers), 1):
+        print('{0:<10} {1:>5.2f}s'.format(swimmers[i], timings[i]))
+
+
 swimmers = inputSwimmers()
 timings = inputTiming(swimmers)
 printResults(swimmers, timings)
+printSortedResult(swimmers, timings)
