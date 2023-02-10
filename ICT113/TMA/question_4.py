@@ -110,20 +110,18 @@ def placeTitle(square_1, square_2, symbol, list):
     list[square_2x][square_2y] = symbol
     printBoard(list)
 
-def isGameAlive(list, symbolMap):
-    isTilePlacedByPlayer_1 = False
-    isTilePlacedbyPlayer_2 = False
-    for i in  range (0, len(list), 1):
-        for n in range (0, len(list), 1):
-            if (list[i][n] == symbolMap.get('player_1')):
-                isTilePlacedByPlayer_1 = True
-                break
-    for i in  range (0, len(list), 1):
-        for n in range (0, len(list), 1):
-            if (list[i][n] == symbolMap.get('player_2')):
-                isTilePlacedByPlayer_2 = True
-                break
-    if (isTilePlacedByPlayer_1 and isTilePlacedbyPlayer_2):
+def isTileOccupiedBySymbol(list, symbol):
+    for i in range (0, len(list), 1):
+        for n in range(0, len(list), 1):
+            if (list[i][n] == symbol):
+                return True
+    return False
+
+def isGameAlive(list, symbolMap, player_1, player_2):
+    if (
+        isTileOccupiedBySymbol(list, symbolMap.get(player_1)) and
+        isTileOccupiedBySymbol(list, symbolMap.get(player_2))
+    ):
         for i in  range (0, len(list), 1):
             for n in range (0, len(list) - 1, 1):
                 if (list[i][n] == '-' and list[i][n + 1] == '-'):
@@ -139,42 +137,47 @@ namesAndSize = getNamesAndSize()
 player_1 = namesAndSize.get('player_1')
 player_2 = namesAndSize.get('player_2')
 size = namesAndSize.get('size')
-list = getNewBoard(size)
 symbolMap = {
     player_1: 'X',
     player_2: 'O'
 }
-numOfTilePlaced = {
-    player_1: 0,
-    player_2: 0
-}
-toContinueGame = True
-currentPlayer = player_1
-printBoard(list)
+toContinueAnotherRound = True
 
-while (toContinueGame):
-    (square_1, square_2) = getNextTile(currentPlayer, symbolMap.get(currentPlayer))
-    while(not validateTile(square_1, square_2, list)):
+while(toContinueAnotherRound):
+    list = getNewBoard(size)
+    numOfTilePlaced = {
+        player_1: 0,
+        player_2: 0
+    }
+    isNextPlayerTurn = True
+    currentPlayer = player_1
+    printBoard(list)
+    while (isNextPlayerTurn):
         (square_1, square_2) = getNextTile(currentPlayer, symbolMap.get(currentPlayer))
-    placeTitle(square_1, square_2, symbolMap.get(currentPlayer), list)
-    if (not isGameAlive(list, symbolMap)):
-        toContinueGame = False
-    else:
+        while(not validateTile(square_1, square_2, list)):
+            (square_1, square_2) = getNextTile(currentPlayer, symbolMap.get(currentPlayer))
+        placeTitle(square_1, square_2, symbolMap.get(currentPlayer), list)
         if currentPlayer == player_1:
             numOfTilePlaced[player_1] += 1
-            currentPlayer = player_2
         else:
             numOfTilePlaced[player_2] += 1
-            currentPlayer = player_1
+        if (not isGameAlive(list, symbolMap, player_1, player_2)):
+            isNextPlayerTurn = False
+        else:
+            if currentPlayer == player_1:
+                currentPlayer = player_2
+            else:
+                currentPlayer = player_1
 
-if (numOfTilePlaced[player_1] == numOfTilePlaced[player_2]):
-    print ('It is a tie')
-else:
-    winner = player_1
-    if (numOfTilePlaced[player_2] >  numOfTilePlaced[player_1]):
-        winner = player_2
-    print('{0} {1} - {2} {3}'.format(player_1, numOfTilePlaced[player_1], player_2, numOfTilePlaced[player_2]))
-    print('{0} is the winner'.format(winner))
+    if (numOfTilePlaced[player_1] == numOfTilePlaced[player_2]):
+        print ('It is a tie !! Rematch')
+    else:
+        winner = player_1
+        if (numOfTilePlaced[player_2] >  numOfTilePlaced[player_1]):
+            winner = player_2
+        print('{0} {1} - {2} {3}'.format(player_1, numOfTilePlaced[player_1], player_2, numOfTilePlaced[player_2]))
+        print('{0} is the winner'.format(winner))
+        toContinueAnotherRound = False
 
 
 
