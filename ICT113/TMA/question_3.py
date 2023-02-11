@@ -134,8 +134,6 @@ def addOrUpdateFontPricing():
             nextLine = True
     outfile.close()
 
-
-
 def app():
     isExit = False
     while(not isExit):
