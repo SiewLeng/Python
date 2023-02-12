@@ -16,13 +16,13 @@ In this example, the overall game score is 2-0 and player A is the winner.
 a. Write a function displayGameScore(gameScore) that has a list in the above
 format as parameter and displays a summary game score. The result should be
 displayed in the following format:
-    Player A vs B
-    Game 1 21-11
-    Game 2 19-21
-    Game 3 11-21
-    Overall 1-2
-    Winner is player B
-    Test the function using any of the above lists.
+Player A vs B
+Game 1 21-11
+Game 2 19-21
+Game 3 11-21
+Overall 1-2
+Winner is player B
+Test the function using any of the above lists.
 
 b. Write a function getPlayerNames() that prompts for the names of 2 players
 and returns a game score list. The score list returned should be in the following
@@ -32,12 +32,13 @@ Since there are no game scores yet, the list consists of only the player names.
 
 c. Write a function inputGameScores(scoreList) that has the score list as
 parameter and prompts for a game score. For example,
-    Game 1 score A vs B: 21-10
-    Game 2 score A vs B: 21-11
-    Game 3 score A vs B: <enter> key to represent end of input
+Game 1 score A vs B: 21-10
+Game 2 score A vs B: 21-11
+Game 3 score A vs B: <enter> key to represent end of input
 (Assuming the players names are A and B)
 The scores are entered with a dash in between. Add each game score in score
 list. Test out the function.
+
 d. Write a main function to test out all 3 functions.
 """
 

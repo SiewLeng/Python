@@ -52,14 +52,9 @@ def displaceTop3Position(scores):
                 index = n
                 highestTotal = result[n]['total']
         if (i != index):
-            diver_i = result[i]['diver']
-            total_i = result[i]['total']
-            diver_index = result[index]['diver']
-            total_index = result[index]['total']
-            result[i]['diver'] = diver_index
-            result[i]['total'] = total_index
-            result[index]['diver'] = diver_i
-            result[index]['total'] = total_i
+            temp = result[i]
+            result[i] = result[index]
+            result[index] = temp
     print('\nTop Three Position')
     print('{0:>5}  {1:<6}'.format('Diver', 'Total'))
     for i in range(0, 3, 1):
