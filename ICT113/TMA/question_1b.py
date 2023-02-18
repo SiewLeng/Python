@@ -20,7 +20,7 @@ def getBloodPressureCategory(upperNum: int, lowerNum: int):
 
 def main():
     """
-    Prompt user to enter blood pressure reading.\n
+    Prompt user to enter blood pressure reading until the user press ENTER.\n
     If both blood pressure numbers are positive, print the blood pressure category.\n
     Otherwise, print error message.
     """

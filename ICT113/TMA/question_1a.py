@@ -1,14 +1,3 @@
-def getReading():
-    """
-    Prompt user to enter blood pressure reading.\n
-    Return a tube consisting of upper number (int) and lower number (int).
-    """
-    reading = input("Enter blood pressure reading (mmHg): ")
-    splitedReading = reading.split('/')
-    upperNum = int(splitedReading[0])
-    lowerNum = int(splitedReading[1])
-    return (upperNum, lowerNum)
-
 def getBloodPressureCategory(upperNum: int, lowerNum: int):
     """
     Return the blood pressure category based on the upperNum and lowerNum
@@ -27,6 +16,17 @@ def getBloodPressureCategory(upperNum: int, lowerNum: int):
         result = 'Your blood pressure is normal.'
     return result
 
-upperNum, lowerNum = getReading()
-print(getBloodPressureCategory(upperNum, lowerNum))
 
+def main():
+    """
+    Prompt user to enter blood pressure numbers until the user press ENTER.\n
+    Print the blood pressure category based on the blood pressure numbers.
+    """
+    reading = input("Enter blood pressure reading (mmHg): ")
+    while(reading != ''):
+        upperNum = reading.split('/')[0]
+        lowerNum = reading.split('/')[1]
+        print(getBloodPressureCategory(int(upperNum), int(lowerNum)))
+        reading = input("Enter blood pressure reading (mmHg): ")
+        
+main()

@@ -2,7 +2,10 @@ from math import floor
 import random
 
 #(a)
-def isBetween1And49(list):
+def isBetween1And49(list: list):
+    """
+    validate each of item in the list is between 1 and 49.
+    """
     result = True
     for i in range (0, len(list), 1):
         if (list[i] < 1 or list[i] > 49):
@@ -11,7 +14,10 @@ def isBetween1And49(list):
     return result
 
 #(a)
-def isUnique(list):
+def isUnique(list: list):
+    """
+    validate all the item in the list is unique.
+    """
     result = True
     for i in range (0, len(list) - 1, 1):
         for n in range (i + 1, len(list), 1):
@@ -23,7 +29,12 @@ def isUnique(list):
     return result
 
 #(a)
-def ticketValidator(list):
+def ticketValidator(list: list):
+    """
+    validate length of list is 6.\n
+    validate each of item in the list is between 1 and 49.\n
+    validate all the item in the list is unique.
+    """
     result = True
     if (len(list) != 6):
         result = False
@@ -34,7 +45,10 @@ def ticketValidator(list):
     return result
 
 #(b)
-def isNumDiffFromList(list, number):
+def isNumDiffFromList(list: list, number: int):
+    """
+    validate that the number is different from all the items in list.
+    """
     result = True
     for i in range (0, len(list), 1):
         if (number == list[i]):
@@ -44,6 +58,9 @@ def isNumDiffFromList(list, number):
 
 #(b) 
 def quickPick():
+    """
+    Return a list of 6 unique numbers between 1 and 49.
+    """
     list = []
     noOfNumber = 6
     max = 49
@@ -55,42 +72,9 @@ def quickPick():
         list.append(randomNum)
     return list
 
-#(c)
-def printInstruction():
-    instructions = [
-        'Toto Menu',
-        '1. Ticket Entry',
-        '2. Quick Pick',
-        '0. Exit'
-    ]
-    for i in range (0, len(instructions), 1):
-        print(instructions[i])
-
-#(c)
-def userSelectNumber():
-    list = []
-    noOfNumber = 6
-    for i in range (0, noOfNumber, 1):
-        list.append(int(input('Enter pick {0}:'.format(i + 1))))
-    return list
-
-#(c)
-def bettingApp():
-    printInstruction()
-    option = input('Enter option:')
-    while (option != '0'):
-        if (option == '1'):
-            list = userSelectNumber()
-            if (ticketValidator(list)):
-                print('Your TOTO ticket {0} is valid'.format(list))
-            else:
-                print('{0} is an Invalid TOTO ticket'.format(list))
-        elif(option == '2'):
-            list = list = quickPick()
-            print('This is your lucky ticket: {0}'.format(list))
-        printInstruction()
-        option = input('Enter option:')
-    print('Good luck to you!!')
-
-bettingApp()
-
+def main():
+    for i in range(3):
+        list = quickPick()
+        print('QuickPick: ', list)
+        print('ticketValidator({0}) >>>> '.format(list), ticketValidator(list))
+main()
