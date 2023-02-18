@@ -1,9 +1,9 @@
 #a(i)
 def readPricing(filename: str, pricing: dict):
     """
-    Read the data from filename and update to the pricing dictionary.\n
-    The first column of filename will be the key of pricing dictionary.\n
-    The second column of filename will be the value of pricing dictionary.\n
+    Read the data from file with filename and update to the pricing dictionary.\n
+    The first column of file with filename will be the key of pricing dictionary.\n
+    The second column of file with filename will be the value of pricing dictionary.\n
     """
     infile = open(filename, 'r')
     line = infile.readline()
