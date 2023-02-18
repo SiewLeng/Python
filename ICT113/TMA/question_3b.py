@@ -16,7 +16,10 @@ def readPricing(filename: str, pricing: dict):
     infile.close()
 
 #a(ii)
-def printHeading(heading):
+def printHeading(heading: str):
+    """
+    Print the heading decorated with ============= below it.
+    """
     underline = ''
     for i in range(0, len(heading), 1):
         underline += '='
@@ -24,7 +27,12 @@ def printHeading(heading):
     print(heading)
     print(underline)
 
-def showPricing(charPricing, fontPricing, fontSize):
+#a(ii)
+def showPricing(charPricing: dict, fontPricing: dict, fontSize: int):
+    """
+    Print the price of printing each character in the charPricing for \n
+    the given fontSize, charPricing and fontPricing in a table.
+    """
     overallPricing = {}
     noOfChars = 0
     for key in charPricing:
@@ -35,7 +43,6 @@ def showPricing(charPricing, fontPricing, fontSize):
     printHeading(heading)
     numOfColumns = 7
     numOfRows = noOfChars // numOfColumns
-    arrayToPrint = []
     keys = list(overallPricing.keys())
     for i in range(0, numOfRows, 1):
         string = ''
@@ -47,17 +54,32 @@ def showPricing(charPricing, fontPricing, fontSize):
         key = keys[i]
         string += "{0:<3}{1:<6}".format(key, overallPricing[key])
     print(string)
-   
+
 #b
-def displayPricingTable():
-    fontPricing = {}
-    readPricing('fonts.txt', fontPricing)
+def getFontSizes(fontPricing: dict):
+    """
+    Return a string of font size available in fontPricing with each font size 
+    \n separated by ','.
+    """
     keyString = ''
     keys = list(fontPricing.keys())
     for i in range (0, len(keys) - 1, 1):
         keyString += keys[i] + ', '
     keyString += keys[len(keys) - 1]
-    fontSize = input('Enter fontsize ({0}): '.format(keyString))
+    return keyString
+
+#b
+def displayPricingTable():
+    """
+    Prompt the user to enter font size.\n
+    Based on the font size entered, print a table showing the price \n
+    of sewing each character in in character.txt file.\n
+    The data in character.txt will be updated to charPricing dictionary.\n
+    The data in font.txt will be updated to fontPricing dictionary.
+    """
+    fontPricing = {}
+    readPricing('fonts.txt', fontPricing)
+    fontSize = input('Enter font size ({0}): '.format(getFontSizes(fontPricing)))
     if (fontSize in fontPricing):
         charPricing = {}
         readPricing('characters.txt', charPricing)
@@ -65,18 +87,17 @@ def displayPricingTable():
     else:
         print("Invalid font size")
 
+#b
 def requestForQuote():
+    """
+    Prompt the user to enter a string and the font size. \n
+    Calculate the price of sewing the string based on the font size entered.
+    """
     chars = input('Enter characters: ')
     chars = chars.replace(' ', '')
-
     fontPricing = {}
     readPricing('fonts.txt', fontPricing)
-    keyString = ''
-    keys = list(fontPricing.keys())
-    for i in range (0, len(keys) - 1, 1):
-        keyString += keys[i] + ', '
-    keyString += keys[len(keys) - 1]
-    fontSize = input('Enter fontsize ({0}): '.format(keyString))
+    fontSize = input('Enter fontsize ({0}): '.format(getFontSizes(fontPricing)))
 
     if (fontSize in fontPricing):
         charPricing = {}
@@ -103,7 +124,14 @@ def requestForQuote():
     else:
         print("Invalid font size")
 
+#b
 def addOrUpdateCharacterPricing():
+    """
+    Prompt the user to enter a character to update its pricing.\n
+    Prompt the user to enter the price of the character.\n
+    If the character exists, update the price of character in characters.txt file.\n
+    Otherwise, add the new character with its corresponding price in characters.txt file.
+    """
     char = input('Enter a character to update its pricing: ')
     charPricing = {}
     readPricing('characters.txt', charPricing)
@@ -121,7 +149,14 @@ def addOrUpdateCharacterPricing():
             nextLine = True
     outfile.close()
 
+#b
 def addOrUpdateFontPricing():
+    """
+    Prompt the user to enter a fontSize to update its pricing.\n
+    Prompt the user to enter the price ratio of the font size.\n
+    If the font size exists, update the price ratio of the font size in characters.txt file.\n
+    Otherwise, add the new font size with its corresponding price ratio in fonts.txt file.
+    """
     fontSize = input('Enter a font size to update its pricing ratio: ')
     fontPricing = {}
     readPricing('fonts.txt', fontPricing)
@@ -139,7 +174,18 @@ def addOrUpdateFontPricing():
             nextLine = True
     outfile.close()
 
+#b
 def app():
+    """
+    The program will continue until the user enters 0 to exit.\n
+    If the option entered is 1, pricing table will be displayed based on font size entered.
+    If the option entered is 2, the price of sewing the string will be displayed based on \n
+    string and font size entered.\n
+    If the option entered is 3, the price of the character will be added or updated in \n
+    characters.txt based on the character and price entered.\n
+    If the option entered is 4, the price ratio of the font size will be added or updated in \n
+    fonts.txt based on the font size and price ratio entered.\n
+    """
     isExit = False
     while(not isExit):
         instructions = [
