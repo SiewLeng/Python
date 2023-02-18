@@ -1,13 +1,8 @@
-def getReading():
-    reading = input("Enter blood pressure reading (mmHg): ")
-    splitedReading = reading.split('/')
-    if (splitedReading[0].find('-') != -1 or splitedReading[1].find('-') != -1):
-        return -1
-    upperNum = int(splitedReading[0])
-    lowerNum = int(splitedReading[1])
-    return (upperNum, lowerNum)
-
-def getBloodPressureCategory(upperNum, lowerNum):
+def getBloodPressureCategory(upperNum: int, lowerNum: int):
+    """
+    Return the blood pressure category based on the upperNum and lowerNum
+    of blood pressure reading.
+    """
     result = ''
     if (upperNum > 180 or lowerNum > 120):
         result = 'Hypertensive crsis!!. Please consult your doctor.'
@@ -23,10 +18,21 @@ def getBloodPressureCategory(upperNum, lowerNum):
         result = 'Your blood is normal.'
     return result
 
-reading = getReading()
-if (reading == -1):
-    print('You have entered invalid BP numbers')
-else:
-    (upperNum, lowerNum) = reading
-    print(getBloodPressureCategory(upperNum, lowerNum))
-    
+def main():
+    """
+    Prompt user to enter blood pressure reading.\n
+    If both blood pressure numbers are positive, print the blood pressure category.\n
+    Otherwise, print error message.
+    """
+    reading = input("Enter blood pressure reading (mmHg): ")
+    while(reading != ''):
+        upperNum = reading.split('/')[0]
+        lowerNum = reading.split('/')[1]
+        if (upperNum.find('-') != -1 or lowerNum.find('-') != -1):
+            print('Blood pressure number must be positive')
+        else:
+            print(getBloodPressureCategory(int(upperNum), int(lowerNum)))
+        reading = input("Enter blood pressure reading (mmHg): ")
+    print('Thank you and monitoring your blood pressure')
+
+main()

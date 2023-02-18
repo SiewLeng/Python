@@ -1,11 +1,19 @@
 def getReading():
+    """
+    Prompt user to enter blood pressure reading.\n
+    Return a tube consisting of upper number (int) and lower number (int).
+    """
     reading = input("Enter blood pressure reading (mmHg): ")
     splitedReading = reading.split('/')
     upperNum = int(splitedReading[0])
     lowerNum = int(splitedReading[1])
     return (upperNum, lowerNum)
 
-def getBloodPressureCategory(upperNum, lowerNum):
+def getBloodPressureCategory(upperNum: int, lowerNum: int):
+    """
+    Return the blood pressure category based on the upperNum and lowerNum
+    of blood pressure reading.
+    """
     result = ''
     if (upperNum > 180 or lowerNum > 120):
         result = 'Hypertensive crsis!!. Please consult your doctor.'
