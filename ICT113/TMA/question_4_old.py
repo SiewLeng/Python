@@ -161,23 +161,52 @@ def placeTitle(square_1: str, square_2: str, symbol: str, list: list):
     list[square_2x][square_2y] = symbol
     printBoard(list)
 
-def isGameAlive(list: list):
+def isTileOccupiedBySymbol(list: list, symbol: str):
     """
-    Validate the game is still alive.\n
-    If there are at least two horizontal squares or two vertical squares on the board, return True.\n
+    If the any of the square on the board represented by list is occupied by the symbol, return True.\n
     Otherwise, return False.
     """
-    for i in  range (0, len(list), 1):
-        for n in range (0, len(list) - 1, 1):
-            if (list[i][n] == '-' and list[i][n + 1] == '-'):
-                return True
-    for i in  range (0, len(list), 1):
-        for n in range (0, len(list) - 1, 1):
-            if (list[n][i] == '-' and list[n + 1][i] == '-'):
+    for i in range (0, len(list), 1):
+        for n in range(0, len(list), 1):
+            if (list[i][n] == symbol):
                 return True
     return False
 
+def isGameAlive(list: list, symbolMap: dict, player_1: str, player_2: str):
+    """
+    Validate the game is still alive.\n
+    If board is not occupied by both players yet, return True.\n
+    If board is occupied by both players and there are at least two horizontal squares or 
+    two vertical squares, return True.\n
+    Otherwise, return False.
+    """
+    if (
+        isTileOccupiedBySymbol(list, symbolMap.get(player_1)) and
+        isTileOccupiedBySymbol(list, symbolMap.get(player_2))
+    ):
+        for i in  range (0, len(list), 1):
+            for n in range (0, len(list) - 1, 1):
+                if (list[i][n] == '-' and list[i][n + 1] == '-'):
+                    return True
+        for i in  range (0, len(list), 1):
+            for n in range (0, len(list) - 1, 1):
+                if (list[n][i] == '-' and list[n + 1][i] == '-'):
+                    return True
+        return False
+    return True
 
+"""
+Initalised the data for the game.
+"""
+namesAndSize = getNamesAndSize()
+player_1 = namesAndSize.get('player_1')
+player_2 = namesAndSize.get('player_2')
+size = namesAndSize.get('size')
+symbolMap = {
+    player_1: 'X',
+    player_2: 'O'
+}
+toContinueAnotherRound = True
 
 def randomisedPlayer(player_1: str, player_2: str):
     randomNum = floor(random.random() * 2)
@@ -185,71 +214,52 @@ def randomisedPlayer(player_1: str, player_2: str):
         return player_1
     return player_2
 
-
-
-def startGame():
-    """
-    Initalize the data
-    """
-    namesAndSize = getNamesAndSize()
-    player_1 = namesAndSize.get('player_1')
-    player_2 = namesAndSize.get('player_2')
-    size = namesAndSize.get('size')
-    symbolMap = {
-        player_1: 'X',
-        player_2: 'O'
+"""
+Control loop for the game to continue in another round.
+This loop will termiate if there is a winner in the game.
+"""
+while(toContinueAnotherRound):
+    list = getNewBoard(size)
+    numOfTilePlaced = {
+        player_1: 0,
+        player_2: 0
     }
-    toContinueTheRound = True
+    isNextPlayerTurn = True
+    currentPlayer = randomisedPlayer(player_1, player_2)
+    printBoard(list)
     """
-    Control loop for the game to continue in another round.
-    This loop will termiate if there is a winner in the game.
+    Control loop for next player to place his tile.\n
+    This loop will terminate if there are no available squares on the board
+    for the player to place his tile after both players have placed their tiles.
     """
-    while(toContinueTheRound):
-        list = getNewBoard(size)
-        numOfTilePlaced = {
-            player_1: 0,
-            player_2: 0
-        }
-        isNextPlayerTurn = True
-        currentPlayer = randomisedPlayer(player_1, player_2)
-        printBoard(list)
-        """
-        Control loop for next player to place his tile.\n
-        This loop will terminate if there are no available squares on the board
-        for the player to place his tile.
-        """
-        while (isNextPlayerTurn):
+    while (isNextPlayerTurn):
+        (square_1, square_2) = getNextTile(currentPlayer, symbolMap.get(currentPlayer))
+        while(not validateTile(square_1, square_2, list)):
             (square_1, square_2) = getNextTile(currentPlayer, symbolMap.get(currentPlayer))
-            while(not validateTile(square_1, square_2, list)):
-                (square_1, square_2) = getNextTile(currentPlayer, symbolMap.get(currentPlayer))
-            placeTitle(square_1, square_2, symbolMap.get(currentPlayer), list)
-            if currentPlayer == player_1:
-                numOfTilePlaced[player_1] += 1
-            else:
-                numOfTilePlaced[player_2] += 1
-            if (not isGameAlive(list)):
-                isNextPlayerTurn = False
-            else:
-                if currentPlayer == player_1:
-                    currentPlayer = player_2
-                else:
-                    currentPlayer = player_1
-        """
-        Announce the result for this round of game.
-        """
-        if (numOfTilePlaced[player_1] == numOfTilePlaced[player_2]):
-            print ('\nIt is a tie !! Rematch')
+        placeTitle(square_1, square_2, symbolMap.get(currentPlayer), list)
+        if currentPlayer == player_1:
+            numOfTilePlaced[player_1] += 1
         else:
-            winner = player_1
-            if (numOfTilePlaced[player_2] >  numOfTilePlaced[player_1]):
-                winner = player_2
-            print('\n{0} {1} - {2} {3}'.format(player_1, numOfTilePlaced[player_1], player_2, numOfTilePlaced[player_2]))
-            print('{0} is the winner'.format(winner))
-            toContinueTheRound = False
-
-startGame()
-
-
+            numOfTilePlaced[player_2] += 1
+        if (not isGameAlive(list, symbolMap, player_1, player_2)):
+            isNextPlayerTurn = False
+        else:
+            if currentPlayer == player_1:
+                currentPlayer = player_2
+            else:
+                currentPlayer = player_1
+    """
+    Announce the result for this round of game.
+    """
+    if (numOfTilePlaced[player_1] == numOfTilePlaced[player_2]):
+        print ('\nIt is a tie !! Rematch')
+    else:
+        winner = player_1
+        if (numOfTilePlaced[player_2] >  numOfTilePlaced[player_1]):
+            winner = player_2
+        print('\n{0} {1} - {2} {3}'.format(player_1, numOfTilePlaced[player_1], player_2, numOfTilePlaced[player_2]))
+        print('{0} is the winner'.format(winner))
+        toContinueAnotherRound = False
 
 
 
