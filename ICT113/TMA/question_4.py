@@ -210,7 +210,7 @@ toContinueAnotherRound = True
 
 def randomisedPlayer(player_1: str, player_2: str):
     randomNum = floor(random.random() * 2)
-    if random == 0:
+    if randomNum == 0:
         return player_1
     return player_2
 
