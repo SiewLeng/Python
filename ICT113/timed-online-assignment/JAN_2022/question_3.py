@@ -54,7 +54,7 @@ def question_3b():
         else:
             isInsert = False
             for i in range(0, len(numlist), 1):
-                if (num < numlist[i]):
+                if (num <= numlist[i]):
                     numlist.insert(i, num)
                     isInsert = True
                     break

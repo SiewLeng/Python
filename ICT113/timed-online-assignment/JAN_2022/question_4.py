@@ -86,9 +86,9 @@ def displaySeatingPlan(seatingPlan: dict):
     endString = ' '.join(stringList)
     print(endString)
 
-def bookingSeat(seatingPlan: dict):
-    seatNo = input('Enter seat no: ')
-    noOfSeat = int(input('Enter number of seats to book: '))
+def bookingSeat(seatNo: str, noOfSeat: int, seatingPlan: dict):
+    # seatNo = input('Enter seat no: ')
+    # noOfSeat = int(input('Enter number of seats to book: '))
     key = seatNo[0]
     valueArrayStartIndex = int(seatNo[1]) - 1
     isSeatOccupied = False
@@ -108,8 +108,14 @@ def bookingSeat(seatingPlan: dict):
                 seatingPlan[key][i] = 'X'
             print('Seats successfully allocated')
 
-
-seatingPlan = getSeatingPlan()
-displaySeatingPlan(seatingPlan)
-bookingSeat(seatingPlan)
-displaySeatingPlan(seatingPlan)
+def main():
+    seatingPlan = getSeatingPlan()
+    displaySeatingPlan(seatingPlan)
+    seatNo = input('Enter seat no: ')
+    while (seatNo != ''):
+        noOfSeat = int(input('Enter number of seats to book: '))
+        bookingSeat(seatNo, noOfSeat, seatingPlan)
+        displaySeatingPlan(seatingPlan)
+        seatNo = input('Enter seat no: ')
+        
+main()
