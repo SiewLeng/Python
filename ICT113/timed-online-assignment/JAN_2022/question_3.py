@@ -45,4 +45,22 @@ def question_3a():
     print('{0} items.'.format(numOfItem))
     print('Total price ${0:.2f}.'.format(totalPrice))
 
+def question_3b():
+    numlist = []
+    while(len(numlist) <= 4):
+        num = int(input('Enter num: '))
+        if len(numlist) == 0:
+            numlist.append(num)
+        else:
+            isInsert = False
+            for i in range(0, len(numlist), 1):
+                if (num < numlist[i]):
+                    numlist.insert(i, num)
+                    isInsert = True
+                    break
+            if not isInsert:
+                numlist.append(num)
+        print(numlist)
+
 question_3a()
+question_3b()
