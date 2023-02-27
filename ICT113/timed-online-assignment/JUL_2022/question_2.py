@@ -111,35 +111,32 @@ def Qn2a_iv_2(staffSalaryList: list):
             print(nestedListOfSalary[i][n])
 
 def Qn2a_iv_3(staffSalaryList: list):
-    isDone = False
     nestedListOfSalary = []
     index = 0
     count = 0
-    def sortBySalary(item):
-        return item[1]
-    def sortByName(item):
-        return item[0]
-    staffSalaryList.sort(reverse = True, key = sortBySalary)
+    # sort by salary
+    staffSalaryList.sort(reverse = True, key = lambda item: item[1])
     while(count < len(staffSalaryList)):
         listOfStaffWithSameSalary = []
         for i in range (index, len(staffSalaryList), 1):
             if (len(listOfStaffWithSameSalary) == 0):
                 listOfStaffWithSameSalary.append(staffSalaryList[i])
                 count +=1
-            elif (staffSalaryList[i] == listOfStaffWithSameSalary[-1]):
+            elif (staffSalaryList[i][1] == listOfStaffWithSameSalary[-1][1]):
                 listOfStaffWithSameSalary.append(staffSalaryList[i])
                 count += 1
             else:
                 index = i
                 break
+        if (len(listOfStaffWithSameSalary) > 1):
+            # sort by name
+            listOfStaffWithSameSalary.sort(key = lambda item: item[0])
         nestedListOfSalary.append(listOfStaffWithSameSalary)
-    for i in range (0, len(nestedListOfSalary), 1):
-        if (len(nestedListOfSalary[i]) > 1):
-            nestedListOfSalary[i].sort(key = sortByName)
+
     for i in range (0, len(nestedListOfSalary), 1):
         for n in range(0, len(nestedListOfSalary[i]), 1):
             print(nestedListOfSalary[i][n])
-
+    
 def Qn2b_i(staffSalaryList: list, staffSalaryDict: dict):
     for i in range(0, len(staffSalaryList), 1):
         key = staffSalaryList[i][0]
@@ -148,6 +145,7 @@ def Qn2b_i(staffSalaryList: list, staffSalaryDict: dict):
 
 def Qn2b_ii(staffSalaryDict: dict):
     count = 0
+    print('\n')
     for key in staffSalaryDict:
         print('{0:<10} {1:<5}'.format(key, staffSalaryDict[key]))
         count += 1
@@ -157,11 +155,44 @@ def Qn2b_iii(staffSalaryDict: dict):
     key = 'p123'
     if (key in staffSalaryDict):
         staffSalaryDict[key] = 3600
-        print('Updated!')
+        print('\nUpdated!')
     else:
-        print('Unable to locate')
+        print('\nUnable to locate')
 
-            
+def Qn2b_iv(staffSalaryDict: dict):
+    staffSalaryPairs = list(staffSalaryDict.items())
+    # sort by salary
+    staffSalaryPairs = sorted(staffSalaryPairs, key = lambda item: item[1])
+    nestedStaffSalaryPairs = []
+    count = 0
+    index = 0
+    while (count < len(staffSalaryPairs)):
+        staffSalaryPairsWithSameSalary = []
+        for i in range (index, len(staffSalaryPairs), 1):
+            if (len(staffSalaryPairsWithSameSalary) == 0):
+                staffSalaryPairsWithSameSalary.append(staffSalaryPairs[i])
+                count += 1
+            elif(staffSalaryPairs[i][1] == staffSalaryPairsWithSameSalary[-1][1]):
+                staffSalaryPairsWithSameSalary.append(staffSalaryPairs[i])
+                count += 1
+            else:
+                index = i
+                break
+        # sort by name
+        if (len(staffSalaryPairsWithSameSalary) > 0):
+            staffSalaryPairsWithSameSalary = sorted(
+                staffSalaryPairsWithSameSalary,
+                key = lambda item: item[0]
+            )
+        nestedStaffSalaryPairs.append(staffSalaryPairsWithSameSalary)
+    sortedStaffSalaryDict = {}
+    for i in range (0, len(nestedStaffSalaryPairs), 1):
+        for n in range(0, len(nestedStaffSalaryPairs[i]), 1):
+            key = nestedStaffSalaryPairs[i][n][0]
+            value = nestedStaffSalaryPairs[i][n][1]
+            sortedStaffSalaryDict[key] = value
+    Qn2b_ii(sortedStaffSalaryDict)
+    
 staffSalaryList = [
     ['apple', 1200],
     ['zee', 1800],
@@ -173,6 +204,7 @@ staffSalaryList = [
 ]
 staffSalaryDict = {}
 
+"""
 Qn2a_i(staffSalaryList)
 print(staffSalaryList)
 print('\n')
@@ -184,8 +216,10 @@ print('\n')
 Qn2a_iv_3(staffSalaryList)
 print(staffSalaryList)
 """
+
 Qn2b_i(staffSalaryList, staffSalaryDict)
 Qn2b_ii(staffSalaryDict)
-"""
+Qn2b_iii(staffSalaryDict)
+Qn2b_iv(staffSalaryDict)
 
 
