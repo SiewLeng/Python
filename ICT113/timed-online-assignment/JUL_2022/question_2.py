@@ -87,7 +87,7 @@ def Qn2a_iv_2(staffSalaryList: list):
     staffSalaryList.sort(reverse = True, key = sortBySalary)
     index = 0
     listOfSalary = []
-    nestedList = []
+    nestedListOfSalary = []
     for i in range (0, len(staffSalaryList), 1):
         if (len(listOfSalary) == 0):
             listOfSalary.append(staffSalaryList[i][1])
@@ -102,13 +102,43 @@ def Qn2a_iv_2(staffSalaryList: list):
             else:
                 index = n
                 break
-        nestedList.append(listOfStaffWithSameSalary)
-    for i in range (0, len(nestedList), 1):
-        if (len(nestedList[i]) > 1):
-            nestedList[i].sort(key = sortByName)
-    for i in range (0, len(nestedList), 1):
-        for n in range(0, len(nestedList[i]), 1):
-            print(nestedList[i][n])
+        nestedListOfSalary.append(listOfStaffWithSameSalary)
+    for i in range (0, len(nestedListOfSalary), 1):
+        if (len(nestedListOfSalary[i]) > 1):
+            nestedListOfSalary[i].sort(key = sortByName)
+    for i in range (0, len(nestedListOfSalary), 1):
+        for n in range(0, len(nestedListOfSalary[i]), 1):
+            print(nestedListOfSalary[i][n])
+
+def Qn2a_iv_3(staffSalaryList: list):
+    isDone = False
+    nestedListOfSalary = []
+    index = 0
+    count = 0
+    def sortBySalary(item):
+        return item[1]
+    def sortByName(item):
+        return item[0]
+    staffSalaryList.sort(reverse = True, key = sortBySalary)
+    while(count < len(staffSalaryList)):
+        listOfStaffWithSameSalary = []
+        for i in range (index, len(staffSalaryList), 1):
+            if (len(listOfStaffWithSameSalary) == 0):
+                listOfStaffWithSameSalary.append(staffSalaryList[i])
+                count +=1
+            elif (staffSalaryList[i] == listOfStaffWithSameSalary[-1]):
+                listOfStaffWithSameSalary.append(staffSalaryList[i])
+                count += 1
+            else:
+                index = i
+                break
+        nestedListOfSalary.append(listOfStaffWithSameSalary)
+    for i in range (0, len(nestedListOfSalary), 1):
+        if (len(nestedListOfSalary[i]) > 1):
+            nestedListOfSalary[i].sort(key = sortByName)
+    for i in range (0, len(nestedListOfSalary), 1):
+        for n in range(0, len(nestedListOfSalary[i]), 1):
+            print(nestedListOfSalary[i][n])
 
 def Qn2b_i(staffSalaryList: list, staffSalaryDict: dict):
     for i in range(0, len(staffSalaryList), 1):
@@ -151,7 +181,7 @@ print(staffSalaryList)
 print('\n')
 Qn2a_iii(staffSalaryList)
 print('\n')
-Qn2a_iv_2(staffSalaryList)
+Qn2a_iv_3(staffSalaryList)
 print(staffSalaryList)
 """
 Qn2b_i(staffSalaryList, staffSalaryDict)
