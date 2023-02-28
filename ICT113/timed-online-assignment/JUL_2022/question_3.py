@@ -36,6 +36,7 @@ lines. If there are uneven numbers of spaces to pad a line, put the extra space 
 of the line. For example, 'Ms\nLovely\Heart' should be aligned as
 ' Ms \nLovely\n Heart'.
 """
+
 def getCharacterPriceDict():
     infile = open('characterPrice.txt', 'r')
     oneLine = infile.readline()
@@ -50,10 +51,53 @@ def getCharacterPriceDict():
     infile.close()
     return characterPriceDict
 
+#3b
 def computeCost(string: str):
     characterPriceDict = getCharacterPriceDict()
     string = string.replace('\n', '')
+    costInCent = 0
     while (string.find(' ') != -1):
         string = string.replace(' ', '')
+    for i in range (0, len(string), 1):
+        costInCent += characterPriceDict[string[i]]
+    costInCent = (costInCent // 5 ) * 5
+    costInDollar = costInCent / 100
+    return costInDollar
 
-computeCost('Ms   \nLovely\n Heart.')
+#3c
+def justifyLines_1(string: str):
+    lines = string.split('\n')
+    maxNoOfWords = len(lines[0])
+    for i in range (1, len(lines), 1):
+        if (len(lines[i]) > maxNoOfWords):
+            maxNoOfWords = len(lines[i])
+    justifyLines = []
+    for i in range (0, len(lines), 1):
+        justifyLine = ''
+        noOfWords = len(lines[i])
+        numOfFrontPadding = (maxNoOfWords - noOfWords) // 2 + (maxNoOfWords - noOfWords) % 2
+        numOfBackPadding = (maxNoOfWords - noOfWords) // 2
+        for n in range (0, numOfFrontPadding, 1):
+            justifyLine = justifyLine + ' '
+        for n in range(0, noOfWords, 1):
+            justifyLine = justifyLine + (lines[i][n])
+        for n in range (0, numOfBackPadding, 1):
+            justifyLine = justifyLine + ' '
+        justifyLines.append(justifyLine)
+    return '\n'.join(justifyLines)
+
+def justifyLines_2(string: str):
+    lines = string.split('\n')
+    maxNoOfWords = len(lines[0])
+    string = ''
+    for i in range (1, len(lines), 1):
+        if (len(lines[i]) > maxNoOfWords):
+            maxNoOfWords = len(lines[i])
+    for i in range(0, len(lines) - 1, 1):
+        string = string + '{0:^{1}}'.format(lines[i], maxNoOfWords) + '\n'
+    string = string + '{0:^{1}}'.format(lines[-1], maxNoOfWords)
+    return string
+
+print(computeCost('Ha\nHa\nHa'))
+print(justifyLines_1('Ms\nLovely\nHeart'))
+print(justifyLines_2('Ms\nLovely\nHeart'))
