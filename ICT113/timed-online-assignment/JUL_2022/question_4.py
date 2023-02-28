@@ -66,6 +66,7 @@ def checkSequence(string: str):
             return False
     return True
 
+#4b
 def checkSequenceFromFile():
     infile = open('data.txt', 'r')
     outfile = open('output.txt', 'w')
