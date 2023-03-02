@@ -55,6 +55,8 @@ Write a function, main which repeatedly
 until the user enters 0 when prompted for the length. If the user enters negative numbers,
 display an error message and re-prompt the user.
 """
+import random
+from math import floor
 
 #4a
 def checkSequence(string: str):
@@ -78,6 +80,52 @@ def checkSequenceFromFile():
     infile.close()
     outfile.close()
 
+#4c
+def generateRandomNumber (min: int, max: int):
+    return floor(random.random() * (max - min + 1)) + min
+
+def generateSequence(length: int): 
+    if (length <= 0):
+        return ""
+    elif (length == 1):
+        return str(generateRandomNumber(1, 10))
+    else:
+        string = [generateRandomNumber(1, 10)]
+        numOfDash = 0
+        for i in range(1, length, 1):
+            randomNum_1 = generateRandomNumber(0, 2)
+            if randomNum_1 == 0:
+                string.append(-1)
+                numOfDash += 1
+            else:
+                randomNum_2 = generateRandomNumber(1, 2)
+                if (string[i - 1] != -1):
+                    string.append(string[i - 1] + 1)
+                else:
+                    numAtCurrentIndex = numOfDash + string[i - numOfDash - 1] + randomNum_2
+                    string.append(numAtCurrentIndex)
+                    numOfDash = 0
+        for i in range(0, len(string), 1):
+            if (string[i] == -1):
+                string[i] = '-'
+            else:
+                string[i] = str(string[i]) 
+        return ','.join(string)
+
+def main():
+    length = int(input('Enter length of sequence to generate and 0 to end: '))
+    while(length != 0):
+        if length < 0:
+            print('Length of sequence must be a positive number')
+        else:
+            sequence = generateSequence(length)
+            print('{0}: {1}'.format(sequence,checkSequence(sequence)))
+        length = int(input('Enter length of sequence to generate and 0 to end: '))
+        
+"""
 print(checkSequence('2,-,-,5,6,-,-'))
 print(checkSequence('1,2,-,-,6,-,-,-'))
 checkSequenceFromFile()
+"""
+main()
+
