@@ -1,3 +1,33 @@
+"""
+Write a class that models a Rectangle. The class diagram is given as follows:
+
+A Rectangle class has 2 instance variables – length (float) and width (float).
+
+It has a constructor that initializes the length and width. It also has get/set
+methods for the length and width.
+
+It has the following methods:
+ getArea() that returns the area of the rectangle
+ getPerimeter() that returns the perimeter of the rectangle
+ increaseSize(deltaLength, deltaWidth) that increases the length and
+width of the rectangle by deltaLength and deltaWidth respectively.
+ isBigger(rect) that has another rectangle as parameter. The method
+returns True if the current area is bigger than the area of the rectangle
+rect and False otherwise.
+ __str__() method that returns a string representation of a Rectangle
+object, including its area and perimeter as in:
+Length: 2.0 Width: 5.0 Area: 10.0 Perimeter: 14.0
+
+Test out the Rectangle class with the following statements:
+i. Create a Rectangle object r1 with any dimension.
+ii. Print the details of r1.
+iii. Increase the size of the rectangle by 10 units on both sides.
+iv. Print the details of r1 again.
+v. Create another rectangle r2 with any dimension.
+vi. Print the area and perimeter using the getArea() and getPerimeter() methods.
+vii. Compare r1 with r2 using the isBigger() method. Display the outcome.
+"""
+
 class Rectangle:
     def __init__(self, length: float, width: float):
         self.__length = length

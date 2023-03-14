@@ -1,3 +1,24 @@
+"""
+Write a class Person that models a person’s particulars as shown in the UML
+diagram:
+
+The class has 3 instance variables – gender (str), name (str), last name(str).
+It has a constructor that initializes the gender, name and last name. It has getter
+methods for all instance variables and setter method only for name.
+
+It has the following methods:
+- getFullName() returns the full name with a salutation “Mr.“ or “Ms.”,
+depending on the person’s gender (m or f). The name is given in this order:
+the last name, followed by the name, e.g., “Mr. Ong Ah Seng”
+- getInitials() returns the first letter of the name separated by blanks, followed
+by the lastname. E.g. it may return “A. Ong”.
+- __str__() method that returns a string representation of a Person object as in:
+Name: Ong Ah Seng Gender : Male
+
+Test out the class, by creating a Person object and calling the methods in the
+class.
+"""
+
 class Person:
     def __init__(self, gender: str, name: str, lastName: str):
         """
