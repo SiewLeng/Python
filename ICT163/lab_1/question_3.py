@@ -26,9 +26,9 @@ vi. Print the quadrants for p1 and p2
 """
 
 class Point:
-    def __init__(self, x: float, y: float):
-        self.__x = x
-        self.__y = y
+    def __init__(self, x: float = None, y: float = None):
+        self.__x = 0 if x is None else x
+        self.__y = 0 if y is None else y
 
     def getX(self) -> float:
         return self.__x
@@ -65,6 +65,8 @@ class Point:
             return 4
         
 def main():
+    p0 = Point()
+    print('p0: ({0},{1})'.format(p0.getX(), p0.getY()))
     p1 = Point(5, 1)
     print('p1: ({0},{1})'.format(p1.getX(), p1.getY()))
     p1.move(5, -5)
