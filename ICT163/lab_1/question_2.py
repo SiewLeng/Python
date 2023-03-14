@@ -60,8 +60,7 @@ class Rectangle:
     def isBigger(self, rect: object):
         if type(rect) == Rectangle:
             return self.getArea() > rect.getArea()
-        else:
-            return 'Invalid argument passed'
+        return 'Invalid argument passed'
     
     def __str__(self) -> str:
         length = 'Length: {0:<6.2f}'.format(self.getLength())
